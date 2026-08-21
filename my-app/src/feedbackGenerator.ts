@@ -52,17 +52,17 @@ export const generateFeedback = (poseId: string, pose: NormalizedLandmark[], wid
   // --- Final Output Formatting ---
   if (evaluatedCount === 0) {
     feedbackHTML = `<div class="feedback-text" style="color: #d97706; font-weight: bold;">
-      ⚠️ Please step back. Cannot see enough of your body.
+      Please step back. Cannot see enough of your body.
     </div>`;
   } else if (missingJoints.length > 0) {
     if (allPerfect) {
-      feedbackHTML = `<div class="feedback-text success">✅ Visible joints look perfect!</div>` + feedbackHTML;
+      feedbackHTML = `<div class="feedback-text success">Visible joints look perfect!</div>` + feedbackHTML;
     }
     feedbackHTML += `<div class="feedback-text" style="font-size: 14px; color: #666; margin-top: 15px;">
       <i>(Note: Couldn't clearly see ${missingJoints.join(', ')}.)</i>
     </div>`;
   } else if (allPerfect) {
-    feedbackHTML = `<div class="feedback-text success">✅ Perfect form! Hold the pose.</div>`;
+    feedbackHTML = `<div class="feedback-text success">Perfect form! Hold the pose.</div>`;
   }
   
   return feedbackHTML;
