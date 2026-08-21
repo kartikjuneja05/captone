@@ -2,16 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MediaPipe Pose Tracker</title>
+    <title>Yoga Pose Tracker</title>
     <style>
-      /* Container to stack the video and canvas exactly on top of each other */
-      #container {
+      body { font-family: sans-serif; padding: 20px; }
+      
+      /* UI Views */
+      #tracker-view { display: none; } /* Hidden by default */
+      
+      /* Tracker Layout: Camera Left, Feedback Right */
+      .tracker-container {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+
+      /* Camera/Canvas Overlay Container */
+      .camera-wrapper {
         position: relative;
         width: 640px;
         height: 480px;
-        margin: 20px auto;
+        background: #000;
       }
       video, canvas {
         position: absolute;
@@ -21,16 +32,64 @@
         height: 100%;
         object-fit: cover;
       }
-      canvas {
-        /* Ensure canvas is drawn on top of the video */
-        z-index: 10; 
+      canvas { z-index: 10; }
+
+      /* Feedback Sidebar */
+      .feedback-panel {
+        flex: 1;
+        padding: 20px;
+        background: #f4f4f4;
+        border-radius: 8px;
+        min-height: 440px;
       }
+      .feedback-text {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .error { color: red; font-weight: bold; }
+      .success { color: green; font-weight: bold; }
     </style>
   </head>
   <body>
-    <div id="container">
-      <video id="webcam" autoplay playsinline></video>
-      <canvas id="output_canvas"></canvas>
+    <!-- VIEW 1: Homepage with Links -->
+    <div id="home-view">
+      <h1>Select an Asana</h1>
+      <ul>
+        <li><a href="#" class="pose-link" data-pose="tadasana">Mountain Pose (Tadasana)</a></li>
+        <li><a href="#" class="pose-link" data-pose="vrksasana">Tree Pose (Vrksasana)</a></li>
+        <li><a href="#" class="pose-link" data-pose="virabhadrasana_ii">Warrior II (Virabhadrasana II)</a></li>
+        <li><a href="#" class="pose-link" data-pose="trikonasana">Triangle Pose (Trikonasana)</a></li>
+        <li><a href="#" class="pose-link" data-pose="bhujangasana">Cobra Pose (Bhujangasana)</a></li>
+      </ul>
+    </div>
+
+    <!-- VIEW 2: Live Tracker -->
+    <!-- Replace your current tracker-view in index.html with this -->
+    <div id="tracker-view">
+      <button id="back-btn">← Back to Menu</button>
+      <h2 id="active-pose-name">Loading...</h2>
+      
+      <div class="tracker-container">
+        <!-- Left Column: Image + Camera -->
+        <div class="camera-column">
+          <div style="margin-bottom: 15px; text-align: center;">
+            <h4 style="margin: 0 0 5px 0; color: #555;">Reference Pose</h4>
+            <!-- Reference Image Element -->
+            <img id="reference-image" src="" alt="Reference Pose" style="max-height: 200px; border-radius: 8px; object-fit: contain;" />
+          </div>
+
+          <div class="camera-wrapper">
+            <video id="webcam" autoplay playsinline></video>
+            <canvas id="output_canvas"></canvas>
+          </div>
+        </div>
+        
+        <!-- Right Column: Feedback -->
+        <div class="feedback-panel">
+          <h3>Live Feedback</h3>
+          <div id="feedback-log"></div>
+        </div>
+      </div>
     </div>
     
     <script type="module" src="/src/main.ts"></script>
