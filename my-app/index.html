@@ -53,6 +53,12 @@
   <body>
     <!-- VIEW 1: Homepage with Links -->
     <div id="home-view">
+      <div style="padding:12px 16px; background:#eef6ff; border-radius:8px; max-width:520px; margin-bottom:20px;">
+        <b>Personalise your poses</b>
+        <p id="profile-status" style="margin:6px 0; font-size:14px; color:#555;"></p>
+        <button id="assess-btn">Start 2-minute flexibility check</button>
+        <button id="clear-profile-btn" style="display:none;">Reset profile</button>
+      </div>
       <h1>Select an Asana</h1>
       <ul>
         <li><a href="#" class="pose-link" data-pose="tadasana">Mountain Pose (Tadasana)</a></li>
@@ -73,7 +79,7 @@
         <!-- Left Column: Image + Camera -->
         <div class="camera-column">
           <div style="margin-bottom: 15px; text-align: center;">
-            <h4 style="margin: 0 0 5px 0; color: #555;">Reference Pose</h4>
+            <h4 id="reference-title" style="margin: 0 0 5px 0; color: #555;">Reference Pose</h4>
             <!-- Reference Image Element -->
             <img id="reference-image" src="" alt="Reference Pose" style="max-height: 200px; border-radius: 8px; object-fit: contain;" />
           </div>
@@ -88,6 +94,10 @@
         <div class="feedback-panel">
           <h3>Live Feedback</h3>
           <div id="feedback-log"></div>
+          <div id="assess-controls" style="display:none; margin-top:16px;">
+            <button id="assess-primary" style="display:none; padding:8px 16px; font-size:16px;"></button>
+            <button id="assess-skip" style="padding:8px 16px; font-size:14px;">Skip this step</button>
+          </div>
         </div>
       </div>
     </div>

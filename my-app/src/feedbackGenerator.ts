@@ -1,12 +1,10 @@
 import type { NormalizedLandmark } from '@mediapipe/tasks-vision';
-import { ASANAS, JOINT_INDICES } from './data/asanas';
+import { JOINT_INDICES, type Asana } from './data/asanas';
 import { getPixelCoords, calculateAngle } from './geometry';
 
-export const generateFeedback = (poseId: string, pose: NormalizedLandmark[], width: number, height: number): string => {
-  const asana = ASANAS[poseId];
-  if (!asana) return `<div class="feedback-text">Pose data not found.</div>`;
-
+export const generateFeedback = (asana: Asana, pose: NormalizedLandmark[], width: number, height: number): string => {
   let feedbackHTML = "";
+  let anyAdjusted = false;
   let allPerfect = true;
   let evaluatedCount = 0;
   let missingJoints: string[] = [];
@@ -33,15 +31,17 @@ export const generateFeedback = (poseId: string, pose: NormalizedLandmark[], wid
       const angle = calculateAngle(p1, p2, p3);
       
       // Calculate acceptable range
-      const minBound = targetData.target - targetData.tolerance;
-      const maxBound = Math.min(180, targetData.target + targetData.tolerance);
+      // Personalised targets carry explicit bounds; otherwise fall back to target +/- tolerance
+      const minBound = targetData.minBound ?? targetData.target - targetData.tolerance;
+      const maxBound = targetData.maxBound ?? Math.min(180, targetData.target + targetData.tolerance);
+      if (targetData.adjusted) anyAdjusted = true;
 
       const isSafe = angle >= minBound && angle <= maxBound;
 
       if (!isSafe) {
         allPerfect = false;
         feedbackHTML += `<div class="feedback-text error">
-          Adjust ${jointName.replace('_', ' ')}: ~${Math.round(angle)}° (Target: ${targetData.target}°)
+          Adjust ${jointName.replace('_', ' ')}: ~${Math.round(angle)}° (Target: ${targetData.target}°${targetData.adjusted ? ', adjusted to your range' : ''})
         </div>`;
       }
     } else {
@@ -65,5 +65,11 @@ export const generateFeedback = (poseId: string, pose: NormalizedLandmark[], wid
     feedbackHTML = `<div class="feedback-text success">Perfect form! Hold the pose.</div>`;
   }
   
+  if (anyAdjusted) {
+    feedbackHTML += `<div class="feedback-text" style="font-size: 13px; color: #666; margin-top: 15px;">
+      Targets are adjusted to your flexibility profile.
+    </div>`;
+  }
+
   return feedbackHTML;
 };

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" rx="12" fill="#f1f5f9"/>
+  <g fill="none" stroke="#334155" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="80" y1="186" x2="80" y2="108"/>
+    <line x1="80" y1="108" x2="132" y2="146"/>
+    <circle cx="146" cy="158" r="11" fill="#fff"/>
+    <line x1="132" y1="146" x2="128" y2="182"/>
+  </g>
+  <g fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 6">
+    <path d="M92 70 Q130 80 150 118"/>
+  </g>
+  <text x="100" y="196" font-family="sans-serif" font-size="9" text-anchor="middle" fill="#64748b">Side on - legs straight, fold from the hips</text>
+</svg>

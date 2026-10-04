@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" rx="12" fill="#f1f5f9"/>
+  <g fill="none" stroke="#334155" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="80" y1="184" x2="116" y2="140"/>
+    <line x1="116" y1="140" x2="72" y2="158"/>
+    <line x1="72" y1="158" x2="84" y2="92"/>
+    <circle cx="88" cy="74" r="11" fill="#fff"/>
+    <line x1="84" y1="102" x2="122" y2="118"/>
+  </g>
+  <g fill="none" stroke="#0ea5e9" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 6">
+    <path d="M60 110 Q44 140 56 168"/>
+  </g>
+  <text x="100" y="196" font-family="sans-serif" font-size="9" text-anchor="middle" fill="#64748b">Side on - squat low, heels down</text>
+</svg>

@@ -9,6 +9,10 @@ export interface JointTarget {
     target: number;
     tolerance: number;
     weight: number;
+    // Set by personalizeAsana() when the target was capped to the user's measured ROM
+    minBound?: number;
+    maxBound?: number;
+    adjusted?: boolean;
 }
 
 export interface Asana {
